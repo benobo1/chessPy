@@ -30,14 +30,9 @@ def visualize_board():
 #check_board()
 #visualize_board()
 
-visualize_board()
+# b.move(b.matrix[6][1], [5, 1])
 
-b.move(b.matrix[6][1], [5, 1])
-visualize_board()
-print(f"\nCurrent turn: {b.current_turn}")
-print(f"Currently playing color: {b.playing_color}")
-
+b.move(b.matrix[6][3], [4, 3])
 b.move(b.matrix[1][4], [3, 4])
+b.move(b.matrix[4][3], [3, 4])
 visualize_board()
-print(f"\nCurrent turn: {b.current_turn}")
-print(f"Currently playing color: {b.playing_color}")

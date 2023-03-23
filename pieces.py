@@ -1,7 +1,7 @@
 class Piece:
 
   def __init__(self, pos):
-    self.pos = pos
+    self.pos = pos  # [rowNumber, colNumber]
 
   def set_color(self):
     if self.pos[0] == 0 or self.pos[0] == 1:  # 1st or 2nd line (top -> bottom)
