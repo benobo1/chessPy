@@ -24,7 +24,7 @@ class Board:
             elif Piece.pos[0] == 1 and new_pos[0] == 3 and Piece.pos[
                 1] == new_pos[1]:  # Moving straight 2 cases logic
               return True
-            elif self.matrix[new_pos[0]][new_pos[1]] != None:
+            elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[new_pos[0]][new_pos[1]].color == "w":
               if Piece.pos[0] + 1 == new_pos[
                   0] and Piece.pos[1] + 1 == new_pos[1]:  # Take Piece logic
                 return True
@@ -43,7 +43,7 @@ class Board:
       elif Piece.pos[0] == 6 and new_pos[0] == 4 and Piece.pos[
                 1] == new_pos[1]:  # Moving straight 2 cases logic
         return True
-      elif self.matrix[new_pos[0]][new_pos[1]] != None:
+      elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[new_pos[0]][new_pos[1]].color == "b":
         if Piece.pos[0] - 1 == new_pos[
                   0] and Piece.pos[1] + 1 == new_pos[1]:  # Take Piece logic
           return True
@@ -57,6 +57,9 @@ class Board:
     else:
       print("Error: wrong Piece.color value.")
 
+  def is_valid_knight_move(self, Piece, new_pos):
+    pass
+  
   def populate(self):
     for x in range(len(self.matrix)):
       if x == 0 or x == 7:  # For the first line of both W&B
@@ -78,6 +81,16 @@ class Board:
       if Piece != None and Piece.color == self.playing_color:
         if Piece.type == 1:  # Pawn
           return self.is_valid_pawn_move(Piece, new_pos)
+        elif Piece.type == 2: # Knight
+          return self.is_valid_knight_move(Piece, new_pos)
+        elif Piece.type == 3: # Bishop
+          return True
+        elif Piece.type == 4: # Rook
+          return True
+        elif Piece.type == 5: # King
+          return True
+        elif Piece.type == 6: # Queen
+          return True
         else:
           return False
       else:
