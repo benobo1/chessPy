@@ -6,6 +6,8 @@ class Board:
   def __init__(self):
     self.current_turn = 1
     self.playing_color = "w"
+    self.white_on_check = False
+    self.black_on_check = False
     self.matrix = [[None, None, None, None, None, None, None, None],
                    [None, None, None, None, None, None, None, None],
                    [None, None, None, None, None, None, None, None],
@@ -15,40 +17,48 @@ class Board:
                    [None, None, None, None, None, None, None, None],
                    [None, None, None, None, None, None, None, None]]
 
+  def is_on_check(self):
+    if self.white_on_check or self.black_on_check:
+      return True
+    else:
+      return False
+
   def is_valid_pawn_move(self, Piece, new_pos):
     if Piece.color == "b":
-            if self.matrix[Piece.pos[0] + 1][Piece.pos[1]] == None and new_pos[
-                0] == Piece.pos[0] + 1 and new_pos[1] == Piece.pos[
-                  1]:  # moving straight 1 case logic
-              return True
-            elif Piece.pos[0] == 1 and new_pos[0] == 3 and Piece.pos[
-                1] == new_pos[1]:  # Moving straight 2 cases logic
-              return True
-            elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[new_pos[0]][new_pos[1]].color == "w":
-              if Piece.pos[0] + 1 == new_pos[
-                  0] and Piece.pos[1] + 1 == new_pos[1]:  # Take Piece logic
-                return True
-              elif Piece.pos[0] + 1 == new_pos[
-                  0] and Piece.pos[1] - 1 == new_pos[1]:  # Take Piece logic
-                return True
-              else:
-                return False
-            else:
-              return False
-    elif Piece.color == "w":
-      if self.matrix[Piece.pos[0] - 1][Piece.pos[1]] == None and new_pos[
-                0] == Piece.pos[0] - 1 and new_pos[1] == Piece.pos[
-                  1]:  # moving straight logic
+      if self.matrix[Piece.pos[0] + 1][
+          Piece.pos[1]] == None and new_pos[0] == Piece.pos[0] + 1 and new_pos[
+            1] == Piece.pos[1]:  # moving straight 1 case logic
         return True
-      elif Piece.pos[0] == 6 and new_pos[0] == 4 and Piece.pos[
-                1] == new_pos[1]:  # Moving straight 2 cases logic
+      elif Piece.pos[0] == 1 and new_pos[0] == 3 and Piece.pos[1] == new_pos[
+          1]:  # Moving straight 2 cases logic
         return True
-      elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[new_pos[0]][new_pos[1]].color == "b":
-        if Piece.pos[0] - 1 == new_pos[
-                  0] and Piece.pos[1] + 1 == new_pos[1]:  # Take Piece logic
+      elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[
+          new_pos[0]][new_pos[1]].color == "w":
+        if Piece.pos[0] + 1 == new_pos[0] and Piece.pos[1] + 1 == new_pos[
+            1]:  # Take Piece logic
           return True
-        elif Piece.pos[0] - 1 == new_pos[
-                  0] and Piece.pos[1] - 1 == new_pos[1]:  # Take Piece logic
+        elif Piece.pos[0] + 1 == new_pos[0] and Piece.pos[1] - 1 == new_pos[
+            1]:  # Take Piece logic
+          return True
+        else:
+          return False
+      else:
+        return False
+    elif Piece.color == "w":
+      if self.matrix[Piece.pos[0] - 1][
+          Piece.pos[1]] == None and new_pos[0] == Piece.pos[0] - 1 and new_pos[
+            1] == Piece.pos[1]:  # moving straight logic
+        return True
+      elif Piece.pos[0] == 6 and new_pos[0] == 4 and Piece.pos[1] == new_pos[
+          1]:  # Moving straight 2 cases logic
+        return True
+      elif self.matrix[new_pos[0]][new_pos[1]] != None and self.matrix[
+          new_pos[0]][new_pos[1]].color == "b":
+        if Piece.pos[0] - 1 == new_pos[0] and Piece.pos[1] + 1 == new_pos[
+            1]:  # Take Piece logic
+          return True
+        elif Piece.pos[0] - 1 == new_pos[0] and Piece.pos[1] - 1 == new_pos[
+            1]:  # Take Piece logic
           return True
         else:
           return False
@@ -58,8 +68,41 @@ class Board:
       print("Error: wrong Piece.color value.")
 
   def is_valid_knight_move(self, Piece, new_pos):
-    pass
-  
+    if Piece.color == "b":
+      if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[
+          new_pos[0]][new_pos[
+            1]].color == "w":  # Only moves on empty cases or those with opponent's pieces.
+        if (new_pos[0] == Piece.pos[0] + 1 and
+            (new_pos[1] == Piece.pos[1] + 2 or new_pos[1] == Piece.pos[1] - 2)
+            ) or (new_pos[0] == Piece.pos[0] + 2 and
+                  (new_pos[1] == Piece.pos[1] + 1
+                   or new_pos[1] == Piece.pos[1] - 1)) or (
+                     new_pos[0] == Piece.pos[0] - 1 and
+                     (new_pos[1] == Piece.pos[1] + 2
+                      or new_pos[1] == Piece.pos[1] - 2)) or (
+                        new_pos[0] == Piece.pos[0] - 2 and
+                        (new_pos[1] == Piece.pos[1] + 1 or new_pos[1]
+                         == Piece.pos[1] - 1)):  # Knight movement logic
+          return True
+    elif Piece.color == "w":
+      if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[
+          new_pos[0]][new_pos[
+            1]].color == "b":  # Only moves on empty cases or those with opponent's pieces.
+        if (new_pos[0] == Piece.pos[0] + 1 and
+            (new_pos[1] == Piece.pos[1] + 2 or new_pos[1] == Piece.pos[1] - 2)
+            ) or (new_pos[0] == Piece.pos[0] + 2 and
+                  (new_pos[1] == Piece.pos[1] + 1
+                   or new_pos[1] == Piece.pos[1] - 1)) or (
+                     new_pos[0] == Piece.pos[0] - 1 and
+                     (new_pos[1] == Piece.pos[1] + 2
+                      or new_pos[1] == Piece.pos[1] - 2)) or (
+                        new_pos[0] == Piece.pos[0] - 2 and
+                        (new_pos[1] == Piece.pos[1] + 1 or new_pos[1]
+                         == Piece.pos[1] - 1)):  # Knight movement logic
+          return True
+    else:
+      return False
+
   def populate(self):
     for x in range(len(self.matrix)):
       if x == 0 or x == 7:  # For the first line of both W&B
@@ -81,15 +124,15 @@ class Board:
       if Piece != None and Piece.color == self.playing_color:
         if Piece.type == 1:  # Pawn
           return self.is_valid_pawn_move(Piece, new_pos)
-        elif Piece.type == 2: # Knight
+        elif Piece.type == 2:  # Knight
           return self.is_valid_knight_move(Piece, new_pos)
-        elif Piece.type == 3: # Bishop
+        elif Piece.type == 3:  # Bishop
           return True
-        elif Piece.type == 4: # Rook
+        elif Piece.type == 4:  # Rook
           return True
-        elif Piece.type == 5: # King
+        elif Piece.type == 6:  # Queen
           return True
-        elif Piece.type == 6: # Queen
+        elif Piece.type == 5:  # King
           return True
         else:
           return False

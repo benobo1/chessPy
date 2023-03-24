@@ -32,7 +32,9 @@ def visualize_board():
 
 # b.move(b.matrix[6][1], [5, 1])
 
-b.move(b.matrix[6][3], [4, 3])
-b.move(b.matrix[1][4], [3, 4])
-b.move(b.matrix[4][3], [3, 4])
+b.move(b.matrix[7][1], [5, 0])
+b.move(b.matrix[0][1], [2, 2])
+b.move(b.matrix[5][0], [3, 1])
+b.move(b.matrix[1][1], [2, 1])
+b.move(b.matrix[3][1], [1, 2])
 visualize_board()
