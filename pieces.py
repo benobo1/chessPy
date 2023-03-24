@@ -78,6 +78,7 @@ class King(Piece):
     self.name = "king"
     self.type = 5
     self.color = self.set_color()
+    self.on_check = False
     if self.color == "b":
       self.symbol = "♚"
     elif self.color == "w":
