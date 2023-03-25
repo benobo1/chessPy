@@ -88,7 +88,25 @@ class Board:
             return False
 
     def is_valid_bishop_move(self, Piece, new_pos):
-        pass
+        # move only on empty cases or those with opponent's pieces
+        if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color:
+            for x in range(1, 8):
+                # Bottom right movement
+                if (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] + x):
+                    return True
+                # Top right movement
+                elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] + x):
+                    return True
+                # Top left movement
+                elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] - x):
+                    return True
+                # Bottom left movement
+                elif (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] - x):
+                    return True
+            else:
+                return False
+        else:
+            return False
 
     def populate(self):
         for x in range(len(self.matrix)):
