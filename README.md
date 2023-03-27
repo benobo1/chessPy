@@ -9,3 +9,7 @@
 ***
 
  > [Check the Wiki](https://github.com/benobo1/chessPy/wiki)
+ 
+ ***
+
+_PS: [@benobo1](https://github.com/benobo1) if you have to upload files or make changes in the code, do it in the *unstable* branch, this way I'll be able to review it more efficiently, and then I'll merge it in the main branch. You should probably watch one or two youtube courses on git and Github ;)_
