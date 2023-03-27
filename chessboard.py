@@ -90,96 +90,163 @@ class Board:
     def is_valid_bishop_move(self, Piece, new_pos):
         # move only on empty cases or those with opponent's pieces
         if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color:
-            direction = ""
             for x in range(1, 8):
-                # Bottom right movement
                 if (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] + x):
-                    direction = "bottomRight"
-                # Top right movement
+                    # Bottom right movement
+                    i = 0
+                    while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]+i] != None:
+                            return False
                 elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] + x):
-                    direction = "topRight"
-                # Top left movement
+                    # Top right movement
+                    i = 0
+                    while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]+i] != None:
+                            return False
                 elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] - x):
-                    direction = "topLeft"
-                # Bottom left movement
+                    # Top left movement
+                    i = 0
+                    while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]-i] != None:
+                            return False
                 elif (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] - x):
-                    direction = "bottomLeft"
-
-            if direction == "bottomRight":
-                i = 0
-                while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
-                        if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
-                            return True
-                    elif self.matrix[Piece.pos[0]+i][Piece.pos[1]+i] != None:
-                        return False
-            elif direction == "topRight":
-                i = 0
-                while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
-                        if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
-                            return True
-                    elif self.matrix[Piece.pos[0]-i][Piece.pos[1]+i] != None:
-                        return False
-            elif direction == "topLeft":
-                i = 0
-                while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
-                        if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
-                            return True
-                    elif self.matrix[Piece.pos[0]-i][Piece.pos[1]-i] != None:
-                        return False
-            elif direction == "bottomLeft":
-                i = 0
-                while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
-                        if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
-                            return True
-                    elif self.matrix[Piece.pos[0]+i][Piece.pos[1]-i] != None:
-                        return False
+                    # Bottom left movement
+                    i = 0
+                    while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]-i] != None:
+                            return False
         else:
             return False
 
     def is_valid_rook_move(self, Piece, new_pos):
-        direction = ""  # toTop: 0 / toBottom: 1 / toLeft: 2 / toRight: 3
+        # move only on empty cases or those with opponent's pieces
+        if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color:
+            for x in range(1, 8):
+                if Piece.pos[0] - x == new_pos[0] and Piece.pos[1] == new_pos[1]:
+                    i = 0
+                    while Piece.pos[0] - i != new_pos[0]:
+                        i += 1
+                        if Piece.pos[0] - i == new_pos[0]:
+                            return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]] != None:
+                            return False
+                elif Piece.pos[0] + x == new_pos[0] and Piece.pos[1] == new_pos[1]:
+                    i = 0
+                    while Piece.pos[0] + i != new_pos[0]:
+                        i += 1
+                        if Piece.pos[0] + i == new_pos[0]:
+                            return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]] != None:
+                            return False
+                elif Piece.pos[0] == new_pos[0] and Piece.pos[1]-x == new_pos[1]:
+                    i = 0
+                    while Piece.pos[1] - i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[1] - i == new_pos[1]:
+                            return True
+                        elif self.matrix[Piece.pos[0]][Piece.pos[1]-1] != None:
+                            return False
+                elif Piece.pos[0] == new_pos[0] and Piece.pos[1]+x == new_pos[1]:
+                    i = 0
+                    while Piece.pos[1] + i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[1] + i == new_pos[1]:
+                            return True
+                        elif self.matrix[Piece.pos[0]][Piece.pos[1]+i] != None:
+                            return False
 
-        for x in range(1, 8):
-            if Piece.pos[0] - x == new_pos[0] and Piece.pos[1] == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
-                i = 0
-                while Piece.pos[0] - i != new_pos[0]:
-                    i += 1
-                    if Piece.pos[0] - i == new_pos[0]:
-                        return True
-                    elif self.matrix[Piece.pos[0]-i][Piece.pos[1]] != None:
-                        return False
-            elif Piece.pos[0] + x == new_pos[0] and Piece.pos[1] == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
-                i = 0
-                while Piece.pos[0] + i != new_pos[0]:
-                    i += 1
-                    if Piece.pos[0] + i == new_pos[0]:
-                        return True
-                    elif self.matrix[Piece.pos[0]+i][Piece.pos[1]] != None:
-                        return False
-            elif Piece.pos[0] == new_pos[0] and Piece.pos[1]-x == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
-                i = 0
-                while Piece.pos[1] - i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[1] - i == new_pos[1]:
-                        return True
-                    elif self.matrix[Piece.pos[0]][Piece.pos[1]-1] != None:
-                        return False
-            elif Piece.pos[0] == new_pos[0] and Piece.pos[1]+x == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
-                i = 0
-                while Piece.pos[1] + i != new_pos[1]:
-                    i += 1
-                    if Piece.pos[1] + i == new_pos[1]:
-                        return True
-                    elif self.matrix[Piece.pos[0]][Piece.pos[1]+i] != None:
-                        return False
+    def is_valid_queen_move(self, Piece, new_pos):
+        # move only on empty cases or those with opponent's pieces
+        if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color:
+            for x in range(1, 8):
+                if Piece.pos[0] - x == new_pos[0] and Piece.pos[1] == new_pos[1]:
+                    i = 0
+                    while Piece.pos[0] - i != new_pos[0]:
+                        i += 1
+                        if Piece.pos[0] - i == new_pos[0]:
+                            return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]] != None:
+                            return False
+                elif Piece.pos[0] + x == new_pos[0] and Piece.pos[1] == new_pos[1]:
+                    i = 0
+                    while Piece.pos[0] + i != new_pos[0]:
+                        i += 1
+                        if Piece.pos[0] + i == new_pos[0]:
+                            return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]] != None:
+                            return False
+                elif Piece.pos[0] == new_pos[0] and Piece.pos[1]-x == new_pos[1]:
+                    i = 0
+                    while Piece.pos[1] - i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[1] - i == new_pos[1]:
+                            return True
+                        elif self.matrix[Piece.pos[0]][Piece.pos[1]-1] != None:
+                            return False
+                elif Piece.pos[0] == new_pos[0] and Piece.pos[1]+x == new_pos[1]:
+                    i = 0
+                    while Piece.pos[1] + i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[1] + i == new_pos[1]:
+                            return True
+                        elif self.matrix[Piece.pos[0]][Piece.pos[1]+i] != None:
+                            return False
+                elif (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] + x):
+                    # Bottom right movement
+                    i = 0
+                    while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]+i] != None:
+                            return False
+                elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] + x):
+                    # Top right movement
+                    i = 0
+                    while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]+i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]+i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]+i] != None:
+                            return False
+                elif (new_pos[0] == Piece.pos[0] - x and new_pos[1] == Piece.pos[1] - x):
+                    # Top left movement
+                    i = 0
+                    while Piece.pos[0]-i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]-i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]-i][Piece.pos[1]-i] != None:
+                            return False
+                elif (new_pos[0] == Piece.pos[0] + x and new_pos[1] == Piece.pos[1] - x):
+                    # Bottom left movement
+                    i = 0
+                    while Piece.pos[0]+i != new_pos[0] and Piece.pos[1]-i != new_pos[1]:
+                        i += 1
+                        if Piece.pos[0]+i == new_pos[0] and Piece.pos[1]-i == new_pos[1]:
+                            if self.matrix[new_pos[0]][new_pos[1]] == None or Piece.color != self.matrix[new_pos[0]][new_pos[1]].color:
+                                return True
+                        elif self.matrix[Piece.pos[0]+i][Piece.pos[1]-i] != None:
+                            return False
 
     def populate(self):
         for x in range(len(self.matrix)):
@@ -209,7 +276,7 @@ class Board:
                 elif Piece.type == 4:  # Rook
                     return self.is_valid_rook_move(Piece, new_pos)
                 elif Piece.type == 6:  # Queen
-                    return True
+                    return self.is_valid_queen_move(Piece, new_pos)
                 elif Piece.type == 5:  # King
                     return True
                 else:
