@@ -144,6 +144,43 @@ class Board:
         else:
             return False
 
+    def is_valid_rook_move(self, Piece, new_pos):
+        direction = ""  # toTop: 0 / toBottom: 1 / toLeft: 2 / toRight: 3
+
+        for x in range(1, 8):
+            if Piece.pos[0] - x == new_pos[0] and Piece.pos[1] == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
+                i = 0
+                while Piece.pos[0] - i != new_pos[0]:
+                    i += 1
+                    if Piece.pos[0] - i == new_pos[0]:
+                        return True
+                    elif self.matrix[Piece.pos[0]-i][Piece.pos[1]] != None:
+                        return False
+            elif Piece.pos[0] + x == new_pos[0] and Piece.pos[1] == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
+                i = 0
+                while Piece.pos[0] + i != new_pos[0]:
+                    i += 1
+                    if Piece.pos[0] + i == new_pos[0]:
+                        return True
+                    elif self.matrix[Piece.pos[0]+i][Piece.pos[1]] != None:
+                        return False
+            elif Piece.pos[0] == new_pos[0] and Piece.pos[1]-x == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
+                i = 0
+                while Piece.pos[1] - i != new_pos[1]:
+                    i += 1
+                    if Piece.pos[1] - i == new_pos[1]:
+                        return True
+                    elif self.matrix[Piece.pos[0]][Piece.pos[1]-1] != None:
+                        return False
+            elif Piece.pos[0] == new_pos[0] and Piece.pos[1]+x == new_pos[1] and (self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color):
+                i = 0
+                while Piece.pos[1] + i != new_pos[1]:
+                    i += 1
+                    if Piece.pos[1] + i == new_pos[1]:
+                        return True
+                    elif self.matrix[Piece.pos[0]][Piece.pos[1]+i] != None:
+                        return False
+
     def populate(self):
         for x in range(len(self.matrix)):
             if x == 0 or x == 7:  # For the first line of both W&B
@@ -170,7 +207,7 @@ class Board:
                 elif Piece.type == 3:  # Bishop
                     return self.is_valid_bishop_move(Piece, new_pos)
                 elif Piece.type == 4:  # Rook
-                    return True
+                    return self.is_valid_rook_move(Piece, new_pos)
                 elif Piece.type == 6:  # Queen
                     return True
                 elif Piece.type == 5:  # King

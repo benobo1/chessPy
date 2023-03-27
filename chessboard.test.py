@@ -16,8 +16,10 @@ def check_board():
 
 
 def visualize_board():
+    print("  0 1 2 3 4 5 6 7", end="")
     for x in range(len(b.matrix)):
         print("\n")
+        print(x, end=" ")
         for i in range(len(b.matrix[x])):
             if not b.matrix[x][i] == None:
                 print(b.matrix[x][i].symbol, end=" ")
@@ -32,11 +34,12 @@ def visualize_board():
 
 # b.move(b.matrix[6][1], [5, 1])
 
-b.move(b.matrix[6][3], [5, 3])
-b.move(b.matrix[1][3], [2, 3])
-b.move(b.matrix[7][2], [2, 7])
-b.move(b.matrix[1][6], [2, 6])
-b.move(b.matrix[2][7], [0, 5])
-b.move(b.matrix[1][0], [2, 0])
-b.move(b.matrix[0][5], [2, 3])
+b.move(b.matrix[6][0], [4, 0])
+b.move(b.matrix[1][0], [3, 0])
+b.move(b.matrix[7][0], [5, 0])
+b.move(b.matrix[0][0], [2, 0])
+b.move(b.matrix[5][0], [5, 4])
+b.move(b.matrix[2][0], [2, 3])
+b.move(b.matrix[6][1], [5, 1])
+b.move(b.matrix[2][3], [6, 3])
 visualize_board()
