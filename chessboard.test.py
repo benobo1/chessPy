@@ -34,17 +34,8 @@ def visualize_board():
 
 # b.move(b.matrix[6][1], [5, 1])
 
-b.move(b.matrix[6][0], [4, 0])
+b.move(b.matrix[6][4], [4, 4])
 b.move(b.matrix[1][0], [3, 0])
-b.move(b.matrix[7][0], [5, 0])
-b.move(b.matrix[0][0], [2, 0])
-b.move(b.matrix[5][0], [5, 4])
-b.move(b.matrix[2][0], [2, 3])
-b.move(b.matrix[6][1], [5, 1])
-b.move(b.matrix[2][3], [6, 3])
-b.move(b.matrix[7][2], [6, 3])
-b.move(b.matrix[1][4], [2, 4])
-b.move(b.matrix[7][3], [7, 2])
-b.move(b.matrix[0][3], [2, 5])
-b.move(b.matrix[7][2], [5, 0])
+b.move(b.matrix[7][4], [6, 4])
+
 visualize_board()

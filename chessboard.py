@@ -248,6 +248,16 @@ class Board:
                         elif self.matrix[Piece.pos[0]+i][Piece.pos[1]-i] != None:
                             return False
 
+    def is_valid_king_move(self, Piece, new_pos):
+        if Piece.on_check:
+            valid_moves = []
+        else:
+            valid_moves = Piece.get_valid_moves()
+
+        if self.matrix[new_pos[0]][new_pos[1]] == None or self.matrix[new_pos[0]][new_pos[1]].color != Piece.color:
+            if new_pos in valid_moves:
+                return True
+
     def populate(self):
         for x in range(len(self.matrix)):
             if x == 0 or x == 7:  # For the first line of both W&B
@@ -278,7 +288,7 @@ class Board:
                 elif Piece.type == 6:  # Queen
                     return self.is_valid_queen_move(Piece, new_pos)
                 elif Piece.type == 5:  # King
-                    return True
+                    return self.is_valid_king_move(Piece, new_pos)
                 else:
                     return False
             else:
